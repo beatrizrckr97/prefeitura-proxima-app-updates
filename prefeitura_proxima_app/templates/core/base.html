@@ -21,9 +21,9 @@
             </div>
             <nav class="navigation__menu">
                 <ul>
-                    <!-- Removendo links dinâmicos -->
+                    
                     <li><a href="{% url 'home' %}">Home</a></li>
-                    <li><a href="#">Novo Chamado</a></li> <!-- Mudando para um link genérico -->
+                    <li><a href="{% url 'novo_chamado' %}">Novo Chamado</a></li> 
                 </ul>
             </nav>
         </div>
@@ -34,7 +34,7 @@
                         <i class="fa-solid fa-user"></i>
                         <div class="content-main__header-page">
                             {% block header_info %}
-                                <!-- Default content -->
+                                
                                 Bem Vindo
                             {% endblock %}
                         </div>
@@ -53,11 +53,6 @@
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </div>
 
-                    <!-- Removendo os links dinâmicos e conteúdo específico -->
-                    <section class="last__calls-header">
-                        <div class="last__calls-header-title">Últimos Chamados</div>
-                        <a href="#">Novo +</a>
-                    </section>
 
                     {% block content %}
                     <!-- Conteúdo específico de cada página -->
