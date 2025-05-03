@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from core.models import Chamado
+from django.shortcuts import get_object_or_404
 def home(request):
     chamados = Chamado.objects.all().order_by('-id')  # Busca do banco
     return render(request, 'core/home.html', {'chamados': chamados})
@@ -23,3 +24,29 @@ def novo_chamado(request):
         return redirect('home')
 
     return render(request, 'core/novo_chamado.html')
+
+def ver_chamado(request, chamado_id):
+    chamado = get_object_or_404(Chamado, id=chamado_id)
+    return render(request, 'core/ver_chamado.html', {'chamado': chamado})
+
+def editar_chamado(request, chamado_id):
+    chamado = get_object_or_404(Chamado, id=chamado_id)
+
+    if request.method == 'POST':
+        chamado.nome = request.POST.get('name')
+        chamado.endereco = request.POST.get('address')
+        chamado.categoria = request.POST.get('category')
+        chamado.relato = request.POST.get('report')
+        chamado.save()
+        return redirect('ver_chamado', chamado_id=chamado.id)
+
+    return render(request, 'core/editar_chamado.html', {'chamado': chamado})
+
+def excluir_chamado(request, chamado_id):
+    chamado = get_object_or_404(Chamado, id=chamado_id)
+
+    if request.method == 'POST':
+        chamado.delete()
+        return redirect('home')
+
+    return render(request, 'core/excluir_chamado.html', {'chamado': chamado})

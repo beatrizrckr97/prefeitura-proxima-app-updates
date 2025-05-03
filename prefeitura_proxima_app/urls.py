@@ -22,4 +22,7 @@ urlpatterns = [
     
     path('', views.home, name='home'),
     path('novo-chamado/', views.novo_chamado, name='novo_chamado'),
+    path('ver-chamado/<int:chamado_id>/', views.ver_chamado, name='ver_chamado'),
+    path('editar-chamado/<int:chamado_id>/', views.editar_chamado, name='editar_chamado'),
+    path('excluir-chamado/<int:chamado_id>/', views.excluir_chamado, name='excluir_chamado'),
 ]

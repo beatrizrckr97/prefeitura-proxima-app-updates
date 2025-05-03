@@ -18,7 +18,7 @@
                         Status <mark class="calls__status--{% if chamado.status == 'Resolvido' %}resolved{% else %}waiting{% endif %}">{{ chamado.status }}</mark>
                     </div>
                     <div class="calls__date">Data: {{ chamado.data|date:"d/m/Y" }}</div>
-                    <a class="calls__more" href="/ver-chamado/{{ chamado.id }}">
+                    <a class="calls__more" href="{% url 'ver_chamado' chamado.id %}">
                         Ver mais
                         <i class="fa-solid fa-arrow-right"></i>
                     </a>

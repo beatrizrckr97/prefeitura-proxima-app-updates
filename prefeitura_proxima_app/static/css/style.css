@@ -91,14 +91,19 @@ textarea {
     padding-bottom: 13px;
     cursor: pointer;
 }
+.btn--auto {
+    width: auto !important;
+    max-width: none;
+}
 
 .btn i {
     margin-left: 8px;
 }
 
 .call__btn-new,
-.call__btn-del {
-    width: 100%;
+.call__btn-del 
+.call__btn--edit{
+    width: 100%;              
     max-width: 333px;
     min-width: 10px;
     margin-top: 36px;
@@ -113,6 +118,16 @@ textarea {
 
 .call__btn-del {
     background-color: #DA1E28;
+    width: 100%;
+    max-width: 333px;  
+}
+
+.call__btn--edit {
+    background-color: var(--secondary);
+    color: #ffffff;
+    
+    width: 100%;
+    max-width: 333px;
 }
 
 .call label {
