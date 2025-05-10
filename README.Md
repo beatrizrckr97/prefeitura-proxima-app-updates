@@ -14,3 +14,4 @@ Prefeitura + Próxima de Você" é uma plataforma integrada desenvolvida para ap
 - Cristian Rafael Da Rosa [@Cristiantdi](https://github.com/Cristiantdi)
 - Guilherme Estevão Silva [@GuilhermeES](https://github.com/GuilhermeES)
 - Julia Lima Goulart  [@julialg-220](https://github.com/julialg-220)
+- Renan da Silva Cunha  [@BaraoRJ](https://github.com/BaraoRJ)
