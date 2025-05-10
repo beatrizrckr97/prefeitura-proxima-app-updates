@@ -19,7 +19,7 @@ body {
     overflow-x: hidden;
     font-family: "Montserrat", sans-serif;
 }
-''
+
 li {
     list-style: none;
 }
@@ -163,6 +163,7 @@ textarea {
     background-color: var(--secondary);
     border-radius: 10px;
     padding: 15px;
+    list-style: none;
     margin-top: 15px;
 }
 
@@ -211,6 +212,10 @@ textarea {
     color: var(--primary);
     font-size: 16px;
     text-align: end;
+}
+
+.content__body h1{
+    font-size: 22px;
 }
 
 .content__body-mobile {
@@ -458,6 +463,17 @@ textarea {
     font-weight: bold;
     font-size: 18px;
     text-transform: none;
+}
+
+.index__form-messages{
+    background-color: #f5c6cb;
+    border-color: #f5c6cb;
+    color: #721c24;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+
 }
 
 .index__link{

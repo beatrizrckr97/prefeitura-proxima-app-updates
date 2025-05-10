@@ -1,6 +1,21 @@
 from django.shortcuts import render, redirect
 from core.models import Chamado
 from django.shortcuts import get_object_or_404
+from django.contrib import messages
+
+def login(request):
+    if request.method == 'POST':
+        cpf = request.POST.get('cpf')
+        senha = request.POST.get('senha')
+
+        if cpf == '123' and senha == '123':
+            return redirect('home') 
+        else:
+            messages.error(request, 'CPF ou senha inválidos.')
+            return redirect('login')
+
+    return render(request, 'core/login.html')
+
 def home(request):
     chamados = Chamado.objects.all().order_by('-id')  # Busca do banco
     return render(request, 'core/home.html', {'chamados': chamados})

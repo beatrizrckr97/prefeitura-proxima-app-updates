@@ -20,7 +20,8 @@ from . import views
 
 urlpatterns = [
     
-    path('', views.home, name='home'),
+    path('', views.login, name='login'),
+    path('dashboard/', views.home, name='home'),
     path('novo-chamado/', views.novo_chamado, name='novo_chamado'),
     path('ver-chamado/<int:chamado_id>/', views.ver_chamado, name='ver_chamado'),
     path('editar-chamado/<int:chamado_id>/', views.editar_chamado, name='editar_chamado'),
