@@ -65,3 +65,28 @@ def excluir_chamado(request, chamado_id):
         return redirect('home')
 
     return render(request, 'core/excluir_chamado.html', {'chamado': chamado})
+
+# --- View de Cadastro ---
+def cadastro(request):
+    if request.method == 'POST':
+        nome = request.POST.get('nome', '').strip()
+        email = request.POST.get('email', '').strip()
+        cpf = request.POST.get('cpf', '').strip()
+        senha = request.POST.get('senha', '').strip()
+
+        # Validação de nome apenas com letras
+        if not nome.replace(" ", "").isalpha():
+            messages.error(request, 'Nome deve conter apenas letras.')
+            return redirect('cadastro')
+
+
+        # Validação de CPF e senha igual a "123"
+        if cpf != '123' or senha != '123':
+            messages.error(request, 'CPF e senha devem ser "123" para acesso.')
+            return redirect('cadastro')
+
+        # Se passou, redireciona para login
+        messages.success(request, 'Cadastro realizado com sucesso! Faça o login.')
+        return redirect('login')
+
+    return render(request, 'core/cadastro.html')
