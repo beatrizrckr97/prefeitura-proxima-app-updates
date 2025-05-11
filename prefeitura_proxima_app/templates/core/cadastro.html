@@ -27,14 +27,7 @@
                 </ul>
             {% endif %}
 
-            <!-- Mensagens de sucesso -->
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="success-message">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
+          
 
             <form class="call" method="POST">
                 {% csrf_token %}

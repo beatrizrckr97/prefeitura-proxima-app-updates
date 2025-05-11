@@ -8,6 +8,11 @@ Prefeitura + Próxima de Você" é uma plataforma integrada desenvolvida para ap
 
 ✅ Login Simulado
 
+## Observações para utilização do sistema:
+para empregar a responsividade inicial do sistema para o presente momento, foram criadas  condições das quais:
+- as credenciais a serem utilizadas para cadastro e login são '123' (tanto para cpf como para senha);
+- no nome não serão aceitados números;
+- quando o email não for preenchido de forma correta, surge uma sugestão em formato pop-up, para auxílio. 
 ## Autores
 
 - Beatriz Cristina Roecker [@beatrizrckr97](https://github.com/beatrizrckr97)
