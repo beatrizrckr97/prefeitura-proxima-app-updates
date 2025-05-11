@@ -12,7 +12,9 @@ Prefeitura + Próxima de Você" é uma plataforma integrada desenvolvida para ap
 para empregar a responsividade inicial do sistema para o presente momento, foram criadas  condições das quais:
 - as credenciais a serem utilizadas para cadastro e login são '123' (tanto para cpf como para senha);
 - no nome não serão aceitados números;
-- quando o email não for preenchido de forma correta, surge uma sugestão em formato pop-up, para auxílio. 
+- quando o email não for preenchido de forma correta, surge uma sugestão em formato pop-up, para auxílio;
+- antes de rodar o projeto todo, pela nossa utilização de banco de dados, sugere-se que sejam feitas as migrações pelos
+seguintes comandos: python manage.py makemigrations e logo após, python manage.py migrate, assim podendo rodar o código sem problemas.
 ## Autores
 
 - Beatriz Cristina Roecker [@beatrizrckr97](https://github.com/beatrizrckr97)
