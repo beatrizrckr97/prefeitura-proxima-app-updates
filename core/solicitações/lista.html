@@ -1,0 +1,11 @@
+<h1>Solicitações</h1>
+<a href="{% url 'nova_solicitacao' %}">Nova Solicitação</a>
+<ul>
+  {% for s in solicitacoes %}
+    <li>
+      <strong>{{ s.titulo }}</strong> - {{ s.status }} <br>
+      {{ s.categoria }} | {{ s.data_criacao|date:"d/m/Y H:i" }} <br>
+      {{ s.descricao|truncatewords:20 }}
+    </li>
+  {% endfor %}
+</ul>
