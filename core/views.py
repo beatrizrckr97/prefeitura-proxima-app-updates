@@ -1,3 +1,6 @@
-from django.shortcuts import render
+# solicitacoes/views.py
+from django.http import HttpResponse
 
-# Create your views here.
+def home(request):
+    return HttpResponse("Página inicial das solicitações.")
+
