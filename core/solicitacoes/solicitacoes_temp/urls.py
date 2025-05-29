@@ -1,7 +1,5 @@
-from django.urls import path
-from . import views
+from django.urls import path, include
 
 urlpatterns = [
-    path('', views.lista_solicitacoes, name='lista_solicitacoes'),
-    path('nova/', views.nova_solicitacao, name='nova_solicitacao'),
+    path('', include('core.solicitacoes.urls')),
 ]
