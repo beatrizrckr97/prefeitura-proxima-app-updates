@@ -145,6 +145,10 @@ textarea {
     position: relative;
 }
 
+.navigation__logout{
+    background-color: #e000005c !important;
+}
+
 .navigation__top {
     text-align: center;
     border-bottom: 1px solid #ffffff;

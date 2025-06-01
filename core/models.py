@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.hashers import make_password
 
 class Chamado(models.Model):
     STATUS_CHOICES = [
@@ -15,3 +16,22 @@ class Chamado(models.Model):
 
     def __str__(self):
         return f'Chamado {self.id} - {self.status}'
+
+class UsuarioSistema(models.Model):
+    ROLE_CHOICES = [
+        ('admin', 'Administrador'),
+        ('agente', 'Agente'),
+    ]
+
+    nome = models.CharField(max_length=255)
+    email = models.EmailField(unique=True)
+    cpf = models.CharField(max_length=14, unique=True)
+    senha = models.CharField(max_length=128) 
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES)
+
+    def save(self, *args, **kwargs):
+        self.senha = make_password(self.senha)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.nome} ({self.role})"

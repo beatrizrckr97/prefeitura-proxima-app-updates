@@ -24,6 +24,9 @@
                     
                     <li><a href="{% url 'home' %}">Home</a></li>
                     <li><a href="{% url 'novo_chamado' %}">Novo Chamado</a></li> 
+                    <hr>
+                    <li class="navigation__logout"><a href="{% url 'logout' %}">Sair</a></li>
+
                 </ul>
             </nav>
         </div>
@@ -35,7 +38,11 @@
                         <div class="content-main__header-page">
                             {% block header_info %}
                                 
-                                Bem Vindo
+                                {% if request.session.usuario_nome %}
+                                    <p>Bem-vindo, {{ request.session.usuario_nome }}!</p>
+                                    <p>Tipo de usuário:  {{ request.session.usuario_role }}</p>
+                                {% endif %}
+
                             {% endblock %}
                         </div>
                     </div>
