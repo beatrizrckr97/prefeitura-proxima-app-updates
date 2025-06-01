@@ -1,0 +1,42 @@
+{% extends "core/base.html" %}
+
+{% block title %}Chamado {{ chamado.id }}{% endblock %}
+
+{% block content %}
+    <div class="content__body-intern">
+        <div>
+            <span>Visualizando</span>
+            <h1 class="content__body-title-page">Chamado {{ chamado.id }}</h1>
+        </div>
+        <div>
+            <div class="calls__status">
+                Status: 
+                <mark class="calls__status--{% if chamado.status == 'Resolvido' %}resolved{% else %}waiting{% endif %}">
+                    {{ chamado.status }}
+                </mark>
+            </div>
+        </div>
+    </div>
+
+    <div class="call-details">
+        <p><strong>Nome:</strong> {{ chamado.nome }}</p>
+        <p><strong>Endereço:</strong> {{ chamado.endereco }}</p>
+        <p><strong>Categoria:</strong> {{ chamado.categoria }}</p>
+        <p><strong>Relato:</strong> {{ chamado.relato }}</p>
+        <p><strong>Data:</strong> {{ chamado.data|date:"d/m/Y H:i" }}</p>
+    </div>
+
+    <div class="call__bot">
+        <!-- Botão Excluir -->
+        <a href="{% url 'excluir_chamado' chamado.id %}" class="btn call__btn-del">
+            Excluir
+            <i class="fa-solid fa-trash"></i>
+        </a>
+    
+        <!-- Botão Editar -->
+        <a href="{% url 'editar_chamado' chamado.id %}" class="btn call__btn--edit btn--auto">
+            Editar
+            <i class="fa-solid fa-pen"></i>
+        </a>
+    </div>
+{% endblock %}
