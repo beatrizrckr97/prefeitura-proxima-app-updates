@@ -1,0 +1,10 @@
+{% extends "core/base.html" %}
+{% block content %}
+    <h1>Confirmar Exclusão</h1>
+    <p>Você tem certeza que deseja excluir o chamado {{ chamado.id }}?</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn call__btn-del">Sim, excluir</button>
+        <a href="{% url 'ver_chamado' chamado.id %}" class="btn">Cancelar</a>
+    </form>
+{% endblock %}
