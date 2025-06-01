@@ -1,0 +1,47 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+    <h1 class="content__body-title-page">Novo Chamado</h1>
+    <form class="call" action="{% url 'novo_chamado' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="name">Nome Completo</label>
+            <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                placeholder="Informe seu nome completo" 
+                required>
+        </div>
+        <div class="form-group">
+            <label for="address">Endereço do Ocorrido</label>
+            <input 
+                type="text" 
+                id="address" 
+                name="address" 
+                placeholder="Informe o endereço do ocorrido" 
+                required>
+        </div>
+        <div class="form-group">
+            <label for="category">Categoria do Problema</label>
+            <select id="category" name="category" required>
+                <option value="" disabled selected>Selecione uma categoria</option>
+                <option value="1">Saúde</option>
+                <option value="2">Assistência Social</option>
+                <option value="3">Educação</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="report">Relato</label>
+            <textarea 
+                id="report" 
+                name="report" 
+                placeholder="Descreva o problema ocorrido" 
+                required></textarea>
+        </div>
+        <button type="submit" class="btn call__btn-new">
+            Relatar
+            <i class="fa-solid fa-arrow-right"></i>
+        </button>
+    </form>
+{% endblock %}

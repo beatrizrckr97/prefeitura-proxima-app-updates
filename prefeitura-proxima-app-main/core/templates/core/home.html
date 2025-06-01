@@ -1,0 +1,29 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+    <h1>Bem-vindo à Prefeitura+ pertodevc</h1>
+   
+    <!-- Seção de chamados -->
+    <section class="last__calls-header">
+        <div class="last__calls-header-title">Últimos Chamados</div>
+        <a href="{% url 'novo_chamado' %}">Novo +</a> 
+    </section>
+    <section class="calls">
+        {% for chamado in chamados %}
+            <article class="calls-card">
+                <div class="calls-bar {% if chamado.status == 'Resolvido' %}calls-bar--resolved{% else %}calls-bar--waiting{% endif %}"></div>
+                <div>
+                    <h3 class="calls-title">Chamado {{ chamado.id }}</h3>
+                    <div class="calls__status">
+                        Status <mark class="calls__status--{% if chamado.status == 'Resolvido' %}resolved{% else %}waiting{% endif %}">{{ chamado.status }}</mark>
+                    </div>
+                    <div class="calls__date">Data: {{ chamado.data|date:"d/m/Y" }}</div>
+                    <a class="calls__more" href="{% url 'ver_chamado' chamado.id %}">
+                        Ver mais
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </article>
+        {% endfor %}
+    </section>
+{% endblock %}
