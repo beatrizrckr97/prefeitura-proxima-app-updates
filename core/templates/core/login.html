@@ -51,4 +51,14 @@
         </div>
     </div>
 </main>
+<!-- Máscara de CPF -->
+<script src="{% static 'js/inputmask.min.js' %}"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const cpf = document.getElementById('cpf');
+    if (cpf) {
+      Inputmask({"mask": "999.999.999-99"}).mask(cpf);
+    }
+  });
+</script>
 {% endblock %}

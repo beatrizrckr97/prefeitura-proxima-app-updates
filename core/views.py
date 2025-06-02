@@ -1,18 +1,27 @@
-from django.shortcuts import render, redirect
+import re
+from django.shortcuts import render, redirect, get_object_or_404
 from core.models import Chamado
-from django.shortcuts import get_object_or_404
 from django.contrib import messages
-from django.contrib.auth.hashers import check_password
+from django.contrib.auth.hashers import check_password, make_password
 from .models import UsuarioSistema
 from .decorators import login_required
 
 def login(request):
     if request.method == 'POST':
-        cpf = request.POST.get('cpf')
-        senha = request.POST.get('senha')
+        cpf = request.POST.get('cpf', '').strip()
+        senha = request.POST.get('senha', '').strip()
+
+        # Remove máscara do CPF
+        cpf = re.sub(r'\D', '', cpf)
 
         try:
             usuario = UsuarioSistema.objects.get(cpf=cpf)
+
+            # Verifica se o usuário está aprovado
+            if not usuario.is_approved:
+                messages.error(request, 'Seu cadastro está aguardando aprovação do administrador.')
+                return render(request, 'core/login.html')
+
             if check_password(senha, usuario.senha):
                 request.session['usuario_id'] = usuario.id
                 request.session['usuario_nome'] = usuario.nome
@@ -31,7 +40,7 @@ def logout(request):
 
 @login_required
 def home(request):
-    chamados = Chamado.objects.all().order_by('-id')  # Busca do banco
+    chamados = Chamado.objects.all().order_by('-id')
     return render(request, 'core/home.html', {'chamados': chamados})
 
 @login_required
@@ -42,13 +51,12 @@ def novo_chamado(request):
         categoria = request.POST.get('category')
         relato = request.POST.get('report')
 
-        # Salva no banco
         Chamado.objects.create(
             nome=nome,
             endereco=endereco,
             categoria=categoria,
             relato=relato,
-            status='Em andamento'  # ou outro valor padrão
+            status='Em andamento'
         )
 
         return redirect('home')
@@ -89,22 +97,57 @@ def cadastro(request):
     if request.method == 'POST':
         nome = request.POST.get('nome', '').strip()
         email = request.POST.get('email', '').strip()
-        cpf = request.POST.get('cpf', '').strip()
-        senha = request.POST.get('senha', '').strip()
+        cpf_raw = request.POST.get('cpf', '').strip()
+        senha_raw = request.POST.get('senha', '').strip()
+        endereco = request.POST.get('endereco', '').strip()
+        data_nascimento = request.POST.get('data_nascimento', '').strip()
+        telefone_raw = request.POST.get('telefone', '').strip()
 
-        # Validação de nome apenas com letras
+        # Remove máscaras
+        cpf = re.sub(r'\D', '', cpf_raw)
+        telefone = re.sub(r'\D', '', telefone_raw)
+
+        # Validação básica de nome
         if not nome.replace(" ", "").isalpha():
             messages.error(request, 'Nome deve conter apenas letras.')
             return redirect('cadastro')
 
-
-        # Validação de CPF e senha igual a "123"
-        if cpf != '123' or senha != '123':
-            messages.error(request, 'CPF e senha devem ser "123" para acesso.')
+        # Validação de CPF
+        if len(cpf) != 11:
+            messages.error(request, 'CPF inválido. Informe um número com 11 dígitos.')
             return redirect('cadastro')
 
-        # Se passou, redireciona para login
-        messages.success(request, 'Cadastro realizado com sucesso! Faça o login.')
+        # Verificar se CPF já existe
+        if UsuarioSistema.objects.filter(cpf=cpf).exists():
+            messages.error(request, 'CPF já cadastrado.')
+            return redirect('cadastro')
+
+        # Verificar se e-mail já existe
+        if UsuarioSistema.objects.filter(email=email).exists():
+            messages.error(request, 'E-mail já cadastrado.')
+            return redirect('cadastro')
+
+        # Validação de senha
+        if len(senha_raw) < 8 or not any(char.isdigit() for char in senha_raw):
+            messages.error(request, 'A senha deve conter no mínimo 8 caracteres e pelo menos um número.')
+            return redirect('cadastro')
+
+        # Criptografar a senha
+        senha = make_password(senha_raw)
+
+        # Criar usuário comum
+        UsuarioSistema.objects.create(
+            nome=nome,
+            email=email,
+            cpf=cpf,
+            senha=senha,
+            endereco=endereco,
+            data_nascimento=data_nascimento,
+            telefone=telefone,
+            role='usuario'
+        )
+
+        messages.success(request, 'Cadastro realizado com sucesso! Aguarde aprovação do administrador.')
         return redirect('login')
 
     return render(request, 'core/cadastro.html')

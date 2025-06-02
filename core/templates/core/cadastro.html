@@ -5,7 +5,7 @@
 
 {% block content %}
 <main>
-   <div class="index">
+    <div class="index">
         <div class="index__img">
             <div>
                 <img src="{% static 'img/login-img.png' %}" alt="Prefeitura" />
@@ -26,8 +26,6 @@
                     {% endfor %}
                 </ul>
             {% endif %}
-
-          
 
             <form class="call" method="POST">
                 {% csrf_token %}
@@ -51,6 +49,7 @@
                             required>
                     </div>
                 </div>
+
                 <div class="form-group__flex">
                     <div class="form-group">
                         <label for="cpf">CPF</label>
@@ -61,7 +60,37 @@
                             placeholder="CPF" 
                             required>
                     </div>
+                    <div class="form-group">
+                        <label for="telefone">Telefone</label>
+                        <input 
+                            type="text" 
+                            id="telefone" 
+                            name="telefone" 
+                            placeholder="Telefone" 
+                            required>
+                    </div>
                 </div>
+
+                <div class="form-group__flex">
+                    <div class="form-group">
+                        <label for="endereco">Endereço completo</label>
+                        <input 
+                            type="text" 
+                            id="endereco" 
+                            name="endereco" 
+                            placeholder="Endereço completo" 
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="data_nascimento">Data de nascimento</label>
+                        <input 
+                            type="date" 
+                            id="data_nascimento" 
+                            name="data_nascimento" 
+                            required>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label for="senha">Senha</label>
                     <input 
@@ -71,16 +100,32 @@
                         placeholder="Senha" 
                         required>
                 </div>
+
                 <button type="submit" class="btn call__btn-new call__btn-new--index">
                     Cadastrar
                     <i class="fa-solid fa-user-plus"></i>
                 </button>
             </form>
+
             <div class="index__link">
                 Já é membro? <br>
                 <a href="{% url 'login' %}">Faça o Login</a>
             </div>
         </div>
-   </div>
+    </div>
 </main>
+
+<!-- Inputmask com defer -->
+<script src="{% static 'js/inputmask.min.js' %}"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const cpf = document.getElementById('cpf');
+    const telefone = document.getElementById('telefone');
+    if (cpf && telefone) {
+      Inputmask({"mask": "999.999.999-99"}).mask(cpf);
+      Inputmask({"mask": "(99) 99999-9999"}).mask(telefone);
+    }
+  });
+</script>
+
 {% endblock %}

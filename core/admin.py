@@ -6,7 +6,8 @@ from .models import UsuarioSistema
 # Register your models here.
 admin.site.register(Chamado)
 @admin.register(UsuarioSistema)
-class UsuarioSistema(admin.ModelAdmin):
-    list_display = ('nome', 'email', 'cpf', 'role')
+class UsuarioSistemaAdmin(admin.ModelAdmin):
+    list_display = ('nome', 'email', 'cpf', 'role', 'is_approved')
+    list_editable = ('is_approved',)  # permite editar direto na lista
     search_fields = ('nome', 'email', 'cpf')
-    list_filter = ('role',)
+    list_filter = ('role', 'is_approved')
