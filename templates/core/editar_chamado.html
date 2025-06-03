@@ -1,0 +1,62 @@
+{% extends "core/base.html" %}
+
+{% block title %}Prefeitura+pertodevc - Editar Chamado{% endblock %}
+
+{% block content %}
+    <section class="content__body-intern">
+        <div>
+            <span>Editando</span>
+            <h1 class="content__body-title-page">Chamado {{ chamado.id }}</h1>
+        </div>
+        <div>
+            <div class="calls__status">
+                Status <mark class="calls__status--{% if chamado.status == 'Resolvido' %}resolved{% else %}waiting{% endif %}">{{ chamado.status }}</mark>
+            </div>
+        </div>
+    </section>
+
+    <form class="call" action="{% url 'editar_chamado' chamado.id %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="name">Nome Completo</label>
+            <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                placeholder="Nome Completo" 
+                value="{{ chamado.nome }}" 
+                required>
+        </div>
+        <div class="form-group">
+            <label for="address">Endereço do Ocorrido</label>
+            <input 
+                type="text" 
+                id="address" 
+                name="address" 
+                placeholder="Endereço do Ocorrido" 
+                value="{{ chamado.endereco }}" 
+                required>
+        </div>
+        <div class="form-group">
+            <label for="category">Categoria do Problema</label>
+            <select id="category" name="category" required>
+                <option value="" disabled>Categoria do problema</option>
+                <option value="Saúde" {% if chamado.categoria == 'Saúde' %}selected{% endif %}>Saúde</option>
+                <option value="Assistência Social" {% if chamado.categoria == 'Assistência Social' %}selected{% endif %}>Assistência Social</option>
+                <option value="Educação" {% if chamado.categoria == 'Educação' %}selected{% endif %}>Educação</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="report">Relato</label>
+            <textarea 
+                id="report" 
+                name="report" 
+                placeholder="Faça seu relato" 
+                required>{{ chamado.relato }}</textarea>
+        </div>
+        <button type="submit" class="btn call__btn-new">
+            Editar
+            <i class="fa-solid fa-arrow-right"></i>
+        </button>
+    </form>
+{% endblock %}
