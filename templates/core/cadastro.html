@@ -1,0 +1,131 @@
+{% extends 'core/base_public.html' %}
+{% load static %}
+
+{% block title %}Cadastro - Prefeitura+pertodevc{% endblock %}
+
+{% block content %}
+<main>
+    <div class="index">
+        <div class="index__img">
+            <div>
+                <img src="{% static 'img/login-img.png' %}" alt="Prefeitura" />
+                <h1 class="index__title"> Prefeitura+ <br> pertodevc </h1>
+            </div>
+        </div>
+        <div class="index__form index__form--cadastro">
+            <div class="index__form-img">
+                <img src="{% static 'img/logo-menu.png' %}" alt="Logo">
+                <h1 class="index__form-title index__form-title--mobile"> Prefeitura+ <br> pertodevc </h1>
+                <h2 class="index__form-title"> Cadastro </h2>
+            </div>
+
+            {% if messages %}
+                <ul class="index__form-messages">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <form class="call" method="POST">
+                {% csrf_token %}
+                <div class="form-group__flex">
+                    <div class="form-group">
+                        <label for="nome">Nome completo</label>
+                        <input 
+                            type="text" 
+                            id="nome" 
+                            name="nome" 
+                            placeholder="Nome completo" 
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            placeholder="E-mail" 
+                            required>
+                    </div>
+                </div>
+
+                <div class="form-group__flex">
+                    <div class="form-group">
+                        <label for="cpf">CPF</label>
+                        <input 
+                            type="text" 
+                            id="cpf" 
+                            name="cpf" 
+                            placeholder="CPF" 
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefone">Telefone</label>
+                        <input 
+                            type="text" 
+                            id="telefone" 
+                            name="telefone" 
+                            placeholder="Telefone" 
+                            required>
+                    </div>
+                </div>
+
+                <div class="form-group__flex">
+                    <div class="form-group">
+                        <label for="endereco">Endereço completo</label>
+                        <input 
+                            type="text" 
+                            id="endereco" 
+                            name="endereco" 
+                            placeholder="Endereço completo" 
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="data_nascimento">Data de nascimento</label>
+                        <input 
+                            type="date" 
+                            id="data_nascimento" 
+                            name="data_nascimento" 
+                            required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="senha">Senha</label>
+                    <input 
+                        type="password" 
+                        id="senha" 
+                        name="senha" 
+                        placeholder="Senha" 
+                        required>
+                </div>
+
+                <button type="submit" class="btn call__btn-new call__btn-new--index">
+                    Cadastrar
+                    <i class="fa-solid fa-user-plus"></i>
+                </button>
+            </form>
+
+            <div class="index__link">
+                Já é membro? <br>
+                <a href="{% url 'login' %}">Faça o Login</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Inputmask com defer -->
+<script src="{% static 'js/inputmask.min.js' %}"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const cpf = document.getElementById('cpf');
+    const telefone = document.getElementById('telefone');
+    if (cpf && telefone) {
+      Inputmask({"mask": "999.999.999-99"}).mask(cpf);
+      Inputmask({"mask": "(99) 99999-9999"}).mask(telefone);
+    }
+  });
+</script>
+
+{% endblock %}
